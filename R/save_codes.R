@@ -7,8 +7,8 @@
 #' @importFrom magrittr "%>%"
 #' @examples
 #' url <- 'https://search.cdc.gov/search/index.html?all=disease%20spread&none=animal%20fish&exact=corona%20virus&any=pandemic%20global&date1=01%2F01%2F1980&date2=10%2F11%2F2020&dpage=1'
-#' save_html(url, pause = 5, backoff = FALSE);
-#' @return An object containing the HTML code. An html file is also saved to the working directory.
+#' code <- save_code(url);
+#' @return An object containing the HTML code. A text file containing the code is also saved to the working directory.
 #' @export
 save_code <- function(url, browser = 'firefox'){
   rD <- RSelenium::rsDriver(port = 1210L, browser = browser, check = FALSE)
@@ -16,9 +16,9 @@ save_code <- function(url, browser = 'firefox'){
   remDr$navigate(url)
   Sys.sleep(1) #pause to allow page to load
   htmlcode <- remDr$getPageSource()[[1]] %>%
-    read_html() %>%
+    xml2::read_html() %>%
     paste(collapse = '')
-  write(htmlcode, 'text.html')
+  write(htmlcode, 'text.txt')
   remDr$close()
   rm(rD)
   gc()
@@ -38,7 +38,7 @@ save_code <- function(url, browser = 'firefox'){
 #' "https://search.cdc.gov/search/index.html?all=disease%20spread&none=animal%20fish&exact=corona%20virus&any=pandemic%20global&date1=01%2F01%2F1980&date2=10%2F11%2F2020&dpage=2#results",
 #' "https://search.cdc.gov/search/index.html?all=disease%20spread&none=animal%20fish&exact=corona%20virus&any=pandemic%20global&date1=01%2F01%2F1980&date2=10%2F11%2F2020&dpage=3#results")
 #' codes <- save_codes(urls);
-#' @return A list of objects containing the HTML codes for each file. html files are also saved to the working directory.
+#' @return A list of objects containing the HTML codes for each file. Text files containing the code are also saved to the working directory.
 #' @export
 save_codes <- function(urls, browser = 'firefox'){
   rD <- RSelenium::rsDriver(port = 1210L, browser = browser, check = FALSE)
@@ -48,7 +48,7 @@ save_codes <- function(urls, browser = 'firefox'){
     remDr$navigate(i)
     Sys.sleep(1) #pause to allow page to load
     htmlcode <- remDr$getPageSource()[[1]] %>%
-      read_html() %>%
+      xml2::read_html() %>%
       paste(collapse = '')
     write(htmlcode, paste('page',
                           gsub('#results',
@@ -56,7 +56,7 @@ save_codes <- function(urls, browser = 'firefox'){
                                sub('.*page=',
                                    '',
                                    i)),
-                          '.html',
+                          '.txt',
                           sep = ''))
     x <- append(x, htmlcode)
   }

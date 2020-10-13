@@ -37,7 +37,7 @@
 #'     date_from = date_from,
 #'     date_to = date_to,
 #'     pages = 3)
-#' info;
+#' head(info);
 #'@export
 save_and_scrapeCDC <- function(and_terms = '',
                                not_terms = '',
@@ -61,6 +61,7 @@ save_and_scrapeCDC <- function(and_terms = '',
   save_codes(urls = links,
              browser = browser)
   info <- get_info()
+  info <- tibble::as_tibble(info)
   report <- paste('Search parameters:',
                   paste('All these words: ',
                        paste(and_terms,

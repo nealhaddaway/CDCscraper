@@ -23,7 +23,6 @@ Imports:
     listviewer,
     magrittr,
     mgsub,
-    rcrossref,
     RSelenium,
     stats,
     stringr,

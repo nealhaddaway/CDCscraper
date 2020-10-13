@@ -2,7 +2,7 @@
 #'
 #' @description A wrapper for the scraping functions to produce a dataframe of citations for
 #' each page of CDC search results.
-#' @return A dataframe containing all extractable information from all html files in the working
+#' @return A dataframe containing all extractable information from all text files in the working
 #' directory.
 #' @importFrom magrittr "%>%"
 #' @examples
@@ -28,7 +28,7 @@ get_info <- function(){
 
 #' Scrape in code from local html file
 #'
-#'@description Scrape in code from an html file saved locally
+#'@description Scrape in code from a text file saved locally
 #'@param filename Name of the file to be scraped. File should be saved in the working
 #'directory.
 #'@return A string of html code for a webpage
@@ -53,7 +53,7 @@ get_html_code <- function(filename){
 #'@export
 get_htmls_code <- function(){
   filenames <- list.files(getwd())
-  filenames <- filenames[grep('.html', filenames)] #select only the HTML files in the working directory
+  filenames <- filenames[grep('.txt', filenames)] #select only the HTML files in the working directory
   x <- as.list(mapply(get_html_code, filenames))
   return(x)
 }
