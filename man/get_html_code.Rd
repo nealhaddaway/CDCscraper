@@ -14,7 +14,7 @@ directory.}
 A string of html code for a webpage
 }
 \description{
-Scrape in code from an html file saved locally
+Scrape in code from a text file saved locally
 }
 \examples{
 code <- get_html_code(file.choose());

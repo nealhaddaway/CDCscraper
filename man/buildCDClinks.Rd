@@ -36,7 +36,7 @@ specified by the CDC as 'with at least one of the words'.}
 (inclusive). If no value provided, all dates are searched.}
 
 \item{pages}{Integer for the number of pages of search results to be returned (one link per
-page). A maximum of 100 pages can be displayed in the CDC. The default value is 1.}
+page). The default value is 1.}
 
 \item{start_page}{Integer specifying which page(s) of search results should be displayed.
 If multiple pages are selected, multiple URLs are returned, one for each page of ten
@@ -45,7 +45,8 @@ search results.}
 \item{language}{Two-letter language code for search language. The default is 'en' (English).}
 }
 \value{
-A link containing the specified search results.
+A link containing the specified search results. A text file is saved to the working
+directory containing a report of the links generated and the input variables used.
 }
 \description{
 Constructs series of CDC website search page URLs
@@ -61,12 +62,12 @@ exact_phrase <- c('corona virus')
 or_terms <- c('pandemic', 'global')
 date_from <- '01/01/1980'
 date_to <- '10/11/2020'
-link <- buildCDClinks(and_terms = and_terms,
+links <- buildCDClinks(and_terms = and_terms,
     not_terms = not_terms,
     exact_phrase = exact_phrase,
     or_terms = or_terms,
     date_from = date_from,
     date_to = date_to,
     pages = 3)
-link;
+links;
 }

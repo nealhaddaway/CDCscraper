@@ -7,7 +7,7 @@
 get_info()
 }
 \value{
-A dataframe containing all extractable information from all html files in the working
+A dataframe containing all extractable information from all text files in the working
 directory.
 }
 \description{

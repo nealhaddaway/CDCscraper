@@ -68,5 +68,5 @@ info <- save_and_scrapeCDC(and_terms = and_terms,
     date_from = date_from,
     date_to = date_to,
     pages = 3)
-info;
+head(info);
 }
