@@ -20,7 +20,7 @@
 #' If multiple pages are selected, multiple URLs are returned, one for each page of ten
 #' search results.
 #' @param pages Integer for the number of pages of search results to be returned (one link per
-#' page). A maximum of 100 pages can be displayed in the CDC. The default value is 1.
+#' page). The default value is 1.
 #' @examples
 #' and_terms <- c('disease', 'spread')
 #' not_terms <- c('animal', 'fish')
