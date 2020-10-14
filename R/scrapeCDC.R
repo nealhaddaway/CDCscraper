@@ -54,6 +54,7 @@ get_html_code <- function(filename){
 get_htmls_code <- function(){
   filenames <- list.files(getwd())
   filenames <- filenames[grep('.txt', filenames)] #select only the HTML files in the working directory
+  filenames <- filenames[!filenames %in% 'linkgenreport.txt']
   x <- as.list(mapply(get_html_code, filenames))
   return(x)
 }

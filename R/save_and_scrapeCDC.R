@@ -62,67 +62,71 @@ save_and_scrapeCDC <- function(and_terms = '',
              browser = browser)
   info <- get_info()
   info <- tibble::as_tibble(info)
-  report <- paste('Search parameters:',
+
+  report <- paste('File generated: ',
+                  Sys.time(),
+                  '\n',
+                  'Search parameters:',
                   paste('All these words: ',
                        paste(and_terms,
                              collapse = '; '),
                        sep = ''),
-                 paste('None of these words: ',
+                  paste('None of these words: ',
                        paste(not_terms,
                              collapse = '; '),
                        sep = ''),
-                 paste('This exact word or phrase: ',
+                  paste('This exact word or phrase: ',
                        paste('"',
                              exact_phrase,
                              '"',
-                             collapse = '; '),
+                             sep = ''),
                        sep = ''),
-                 paste('Any these words: ',
+                  paste('Any these words: ',
                        paste(or_terms,
                              collapse = '; '),
                        sep = ''),
-                 paste('Between these dates:',
+                  paste('Between these dates:',
                        date_from,
                        'and',
                        date_to,
                        sep = ' '),
-                 if(pages == ''){
+                  if(pages == ''){
                    'Number of pages exported: 1'
                    } else {
                      paste('Number of pages exported: ',
                            pages,
                            sep = '')
                    },
-                 if(start_page == ''){
+                  if(start_page == ''){
                    'Starting from page: 1'
-                 } else {
+                  } else {
                    paste('Starting from page: ',
                          start_page,
                          sep = '')
-                 },
-                 if(language == ''){
+                  },
+                  if(language == ''){
                    'Language: Any'
-                 } else {
+                  } else {
                    paste('Language: ',
                          language,
                          sep = '')
-                 },
-                 if(browser == ''){
+                  },
+                  if(browser == ''){
                    'Browser used for searches: firefox'
-                 } else {
+                  } else {
                    paste('Browser used for searches: ',
                        browser,
                        sep = '')
                    },
-                 paste('Search date, time, timezone: ',
+                  paste('Search date, time, timezone: ',
                        Sys.time(),
                        sep = ''),
-                 '\n',
-                 'CDC search pages exported:',
-                 paste(links,
+                  '\n',
+                  'CDC search pages exported:',
+                  paste(links,
                        collapse = '\n'),
-                 '\n',
-                 sep = '\n')
+                  '\n',
+                  sep = '\n')
   cat(report, file = 'searchreport.txt')
   return(info)
 }

@@ -28,15 +28,16 @@
 #' or_terms <- c('pandemic', 'global')
 #' date_from <- '01/01/1980'
 #' date_to <- '10/11/2020'
-#' link <- buildCDClinks(and_terms = and_terms,
+#' links <- buildCDClinks(and_terms = and_terms,
 #'     not_terms = not_terms,
 #'     exact_phrase = exact_phrase,
 #'     or_terms = or_terms,
 #'     date_from = date_from,
 #'     date_to = date_to,
 #'     pages = 3)
-#' link;
-#' @return A link containing the specified search results.
+#' links;
+#' @return A link containing the specified search results. A text file is saved to the working
+#' directory containing a report of the links generated and the input variables used.
 #' @export
 
 buildCDClinks <- function(and_terms = '',
@@ -48,6 +49,63 @@ buildCDClinks <- function(and_terms = '',
                           pages = 1,
                           start_page = 1,
                           language = '') {
+
+  #report
+  report <- paste(
+                  'File generated: ',
+                  Sys.time(),
+                  '\n',
+                  'Search parameters:',
+                  paste('All these words: ',
+                        paste(and_terms,
+                              collapse = '; '),
+                        sep = ''),
+                  paste('None of these words: ',
+                        paste(not_terms,
+                              collapse = '; '),
+                        sep = ''),
+                  paste('This exact word or phrase: ',
+                        paste('"',
+                              exact_phrase,
+                              '"',
+                              sep = ''),
+                        sep = ''),
+                  paste('Any these words: ',
+                        paste(or_terms,
+                              collapse = '; '),
+                        sep = ''),
+                  paste('Between these dates:',
+                        date_from,
+                        'and',
+                        date_to,
+                        sep = ' '),
+                  if(pages == ''){
+                    'Number of pages exported: 1'
+                  } else {
+                    paste('Number of pages exported: ',
+                          pages,
+                          sep = '')
+                  },
+                  if(start_page == ''){
+                    'Starting from page: 1'
+                  } else {
+                    paste('Starting from page: ',
+                          start_page,
+                          sep = '')
+                  },
+                  if(language == ''){
+                    'Language: Any'
+                  } else {
+                    paste('Language: ',
+                          language,
+                          sep = '')
+                  },
+                  'CDC links generated:',
+                  paste(links,
+                        collapse = '\n'),
+                  '\n',
+                  sep = '\n')
+
     #calculations
     and_terms <- if(any(and_terms == '') == TRUE) { #if and_terms is blank then leave it blank, otherwise combine terms with '+'
       and_terms <- ''
@@ -150,5 +208,7 @@ buildCDClinks <- function(and_terms = '',
                  page,
                  sep = '')
     }
+
+    cat(report, file = 'linkgenreport.txt')
     return(link)
 }
