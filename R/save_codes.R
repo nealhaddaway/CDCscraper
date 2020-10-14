@@ -9,8 +9,7 @@
 #' url <- 'https://search.cdc.gov/search/index.html?all=disease%20spread&none=animal%20fish&exact=corona%20virus&any=pandemic%20global&date1=01%2F01%2F1980&date2=10%2F11%2F2020&dpage=1'
 #' code <- save_code(url);
 #' @return An object containing the HTML code. A text file containing the html code
-#' is saved to the working directory. The `linkgenreport.txt` file generated within
-#' the `buildCDClinks()` function is updated to include a report of the searching.
+#' is saved to the working directory.
 #' @export
 save_code <- function(url, browser = 'firefox'){
   rD <- RSelenium::rsDriver(port = 1210L, browser = browser, check = FALSE)
@@ -24,31 +23,6 @@ save_code <- function(url, browser = 'firefox'){
   remDr$close()
   rm(rD)
   gc()
-
-  report <- paste('\n',
-                  '*-----*\nFile edited: ',
-                  Sys.time(),
-                  '\n',
-                  if(browser == ''){
-                    'Browser used for searches: firefox'
-                  } else {
-                    paste('Browser used for searches: ',
-                          browser,
-                          sep = '')
-                  },
-                  paste('Search date, time, timezone: ',
-                        Sys.time(),
-                        sep = ''),
-                  '\n',
-                  'CDC search pages exported:',
-                  paste(url,
-                        collapse = '\n'),
-                  '\n',
-                  sep = '\n')
-
-  write(report,
-        file="linkgenreport.txt",
-        append=TRUE)
 
   return(htmlcode)
 }
@@ -67,8 +41,7 @@ save_code <- function(url, browser = 'firefox'){
 #' "https://search.cdc.gov/search/index.html?all=disease%20spread&none=animal%20fish&exact=corona%20virus&any=pandemic%20global&date1=01%2F01%2F1980&date2=10%2F11%2F2020&dpage=3#results")
 #' codes <- save_codes(urls);
 #' @return A list of objects containing the HTML codes for each file. Text files
-#' containing the code are also saved to the working directory. The `linkgenreport.txt`
-#' file generated within the `buildCDClinks()` function is updated to include a report of the searching.
+#' containing the code are also saved to the working directory.
 #' @export
 save_codes <- function(urls, browser = 'firefox'){
   rD <- RSelenium::rsDriver(port = 1210L, browser = browser, check = FALSE)
@@ -93,31 +66,6 @@ save_codes <- function(urls, browser = 'firefox'){
   remDr$close()
   rm(rD)
   gc()
-
-  report <- paste('\n',
-                  '*-----*\nFile edited: ',
-                  Sys.time(),
-                  '\n',
-                  if(browser == ''){
-                    'Browser used for searches: firefox'
-                  } else {
-                    paste('Browser used for searches: ',
-                          browser,
-                          sep = '')
-                  },
-                  paste('Search date, time, timezone: ',
-                        Sys.time(),
-                        sep = ''),
-                  '\n',
-                  'CDC search pages exported:',
-                  paste(url,
-                        collapse = '\n'),
-                  '\n',
-                  sep = '\n')
-
-  write(report,
-        file="linkgenreport.txt",
-        append=TRUE)
 
   return(x)
 }
